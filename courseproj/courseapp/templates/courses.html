@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Bootcamp Courses - Add A Course{% endblock %}
+
+{% block content %}
+        <section>
+            <h3>Add a new course:</h3>
+            <form action="/create" method="POST" id="form-c">
+                {% csrf_token %}
+                <p>
+                    <label for="name" class="labels">Name:</label>
+                    <input type="text" name="name" class="inputs">
+                </p>
+                <p>
+                    <label for="desc" class="labels">Description:</label>
+                    <input type="text" name="desc" class="inputs">
+                </p>
+                <p>
+                    <button type="submit">Add</button>
+                </p>
+            </form>
+            <br>
+            <h3>Courses:</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Course Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.desc }}</td>
+                        <td>{{ course.created }}</td>
+                        <td><a href="courses/destroy/{{course.id}}">Remove</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}TV Guide - {{ show.title }}{% endblock %}
+
+{% block content %}
+        <section>
+            <h1>Show {{ show.id }}</h1>
+            <p>Title: {{ show.title }}</p>
+            <p>Network: {{ show.network }}</p>
+            <p>Release Date: {{ show.release }}</p>
+            <p>Description: {{ show.desc }}</p>
+            <br>
+            <p>Last Updated: {{ show.updated }}</p>
+            <p><a href="/shows/edit/{{show.id}}">Edit</a> | <a href="/shows/delete/{{show.id}}">Delete</a></p>
+            <a href="/">Go Back To Shows</a>
+        </section>
+{% endblock %}

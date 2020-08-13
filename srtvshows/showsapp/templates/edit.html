@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}TV Guide - {{ show.title }}{% endblock %}
+
+{% block content %}
+        <section>
+            <h1>Show {{ show.id }}</h1>
+            <a href="/shows/delete/{{show.id}}">Delete Show</a>
+            <h3>Edit Show Info:</h3>
+            <form action="/shows/update/{{show.id}}" method="POST">
+                {% csrf_token %}
+                <p>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title">
+                </p>
+                <p>
+                    <label for="network">Network:</label>
+                    <input type="text" name="network">
+                </p>
+                <p>
+                    <label for="release">Release:</label>
+                    <input type="date" name="release">
+                </p>
+                <p>
+                    <label for="desc">Description:</label>
+                    <input type="text" name="desc">
+                </p>
+                <p><button>Submit</button></p>
+            </form>
+            <a href="/shows/{{show.id}}">Go Back To Show</a>
+        </section>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+{% endblock %}

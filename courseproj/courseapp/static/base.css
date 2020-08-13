@@ -1,0 +1,19 @@
+.container-fluid {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #B5D8CC;
+    color: #8D3B72;
+}
+a {
+    color: #00CECB;
+}
+.table-striped {
+    color: #8D3B72;
+}
+label, input {
+    display: inline-block;
+    vertical-align: baseline;
+    width: 150px;
+}
+form {
+    width: 300px;
+}

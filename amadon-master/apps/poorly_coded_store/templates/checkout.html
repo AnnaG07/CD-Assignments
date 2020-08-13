@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "checkout.css" %}">
+    <title>Amadon - Checked Out</title>
+</head>
+<body>
+    <div id="container">
+        <h3>Thank you for your business!</h3>
+        <p>We charged your credit card for <span>${{ request.session.new_price }}</span></p>
+        <p>You have ordered <span>#{{ request.session.total_quantity }}</span> items so far and spent <span>${{ request.session.total_cost }}</span> with Amadon.com!</p>
+        <p><a href="/">Go Back</a></p>
+    </div>
+</body>
+</html>

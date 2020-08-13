@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Books & Authors{% endblock %}
+
+{% block content %}
+    <div id="content">
+        <section>
+            <a href="/">Books</a>
+            <h1>Add an Author:</h1>
+            <form action="/authors/create" method="POST">
+                {% csrf_token %}
+                <p class="form-grp">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" name="first_name">
+                </p>
+                <p class="form-grp">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" name="last_name">
+                </p>
+                <p class="form-grp">
+                    <label for="notes">Notes:</label>
+                    <textarea name="notes" cols="25" rows="5"></textarea>
+                </p>
+                <p class="form-grp">
+                    <input type="submit" name="add-book" class="btn-light" value="Add">
+                </p>
+            </form>
+        </section>
+        <section>
+            <h1>Authors:</h1>
+            <table>
+                <thead>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Action</th>
+                </thead>
+                {% for author in authors %}
+                <tr>
+                    <td>{{ author.first_name }}</td>
+                    <td>{{ author.last_name }}</td>
+                    <td>{{ author.notes }}</td>
+                    <td><a href="authors/{{author.id}}">View Author</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+    </div>
+{% endblock %}

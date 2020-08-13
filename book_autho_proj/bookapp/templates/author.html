@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Author View{% endblock %}
+
+{% block content %}
+    <div id="content">
+        <section>
+                <a href="/">Books</a>
+                <a href="/authors">Authors</a>
+                <h1>{{ author.first_name }}{{ author.last_name }}</h1>
+                <p>ID: {{ author.id }}</p>
+                <p>Notes: {{ author.notes }}</p>
+        </section>
+        <section>
+            <h3>Books:</h3>
+            {% for book in author.books.all %}
+                <ul>
+                    <li>{{ book.title }}</li>
+                </ul>
+            {% endfor %}
+            {% if books %}
+                <form action="/authors/{{ author.id }}/assign" method="POST">
+                    {% csrf_token %}
+                    <label for="book_id">Add Book</label>
+                    <select name="id" id="book_id">
+                        {% for book in books %}
+                        <option value="{{ book.id }}">{{ book.title }}</option>
+                        {% endfor %}
+                    </select>
+                    <button>Add</button>
+                </form>
+            {% endif %}
+        </section>
+        <a href="/">Back</a>
+    </div>
+{% endblock %}
