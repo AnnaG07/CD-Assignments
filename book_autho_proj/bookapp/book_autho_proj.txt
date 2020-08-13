@@ -1,0 +1,72 @@
+Create 5 books:
+In [2]: Book.objects.create(title='C Sharp', desc='Book about C Sharp')
+In [3]: Book.objects.create(title='Java', desc='Book about Java')
+In [4]: Book.objects.create(title='Python', desc='Book about Python')
+In [5]: Book.objects.create(title='PHP', desc='Book about PHP')
+In [6]: Book.objects.create(title='Ruby', desc='Book about Ruby')
+
+Create 5 authors:
+In [7]: Author.objects.create(first_name='Jane', last_name='Austen')
+In [8]: Author.objects.create(first_name='Emily', last_name='Dickinson')
+In [9]: Author.objects.create(first_name='Fyodor', last_name='Dostoevksy')
+In [10]: Author.objects.create(first_name='William', last_name='Shakespeare')
+In [11]: Author.objects.create(first_name='Lau', last_name='Tzu')
+
+Change title of book C Sharp:
+In [2]: csharp = Book.objects.get(id=1)
+In [3]: csharp.title = 'C#'
+In [4]: csharp.save()
+
+Change first name of 4th author:
+In [2]: a = Author.objects.get(id=4)
+In [3]: a.first_name = 'Bill'
+In [4]: a.save()
+
+Assign 1st author to first 2 books:
+In [4]: b1 = Book.objects.get(id=1)
+In [5]: b2 = Book.objects.get(id=2)
+In [6]: a1 = Author.objects.get(id=1)
+In [7]: b1.authors.add(a1)
+In [13]: a1.save()
+
+Assign 2nd author to first 3 books:
+In [10]: b3 = Book.objects.get(id=3)
+In [11]: a2 = Author.objects.get(id=2)
+In [14]: b1.authors.add(a2)
+In [15]: b2.authors.add(a2)
+In [16]: b3.authors.add(a2)
+In [18]: a2.save()
+
+Assign 3rd author to first 4 books:
+In [19]: b4 = Book.objects.get(id=4)
+In [20]: a3 = Author.objects.get(id=3)
+In [21]: b1.authors.add(a3)
+In [22]: b2.authors.add(a3)
+In [23]: b3.authors.add(a3)
+In [24]: b4.authors.add(a3)
+In [25]: a3.save()
+
+Assign 4th author to first 5 books:
+In [26]: b5 = Book.objects.get(id=5)
+In [27]: a4 = Author.objects.get(id=4)
+In [28]: b1.authors.add(a4)
+In [29]: b2.authors.add(a4)
+In [30]: b3.authors.add(a4)
+In [31]: b4.authors.add(a4)
+In [32]: b5.authors.add(a4)
+In [33]: a4.save()
+
+Get all authors for 3rd book:
+In [34]: b3.authors.get()
+
+Remove 1st author from 3rd book:
+In [35]: b3.authors.remove(a2)
+
+Add 5th author to 2nd book:
+In [36]: b2.authors.add(a5)
+
+Get all books to 3rd author:
+In [37]: a3.books.all()
+
+Get all authors of 5th book:
+In [38]: b5.authors.all()
