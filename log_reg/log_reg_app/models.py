@@ -1,14 +1,14 @@
 from django.db import models
-import re
+import re, bcrypt
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class UserManager(models.Manager):
-    def validator(self, postData):
+    def register_validator(self, postData):
         errors = {}
         if len(postData['first_name']) < 2:
             errors["first_name"] = "First name must be at least 2 characters"
-        if len(postData['last_name']) < 3:
-            errors["last_name"] = "Last name must be at least 3 characters"
+        if len(postData['last_name']) < 2:
+            errors["last_name"] = "Last name must be at least 2 characters"
         if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "Email must be in valid email format"
         if len(postData['password']) < 8:
@@ -18,10 +18,10 @@ class UserManager(models.Manager):
         return errors
 
 class User(models.Model):
-    first_name = models.CharField(max_length=55)
-    last_name = models.CharField(max_length=55)
+    first_name = models.CharField(max_length=60)
+    last_name = models.CharField(max_length=60)
     email = models.EmailField()
-    password = models.CharField(max_length=55)
+    password = models.CharField(max_length=60)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     objects = UserManager()
