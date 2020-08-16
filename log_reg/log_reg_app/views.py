@@ -8,7 +8,7 @@ def base(request):
     return render (request, 'login.html')
 
 def login(request):
-    """
+    
     if request.method == 'POST':
         logged_user = User.objects.filter(email=request.POST['email'])
         if len(logged_user) > 0:
@@ -25,7 +25,8 @@ def login(request):
             request.session['id'] = logged_user.id
             return redirect('/success')
     return redirect('/')
-
+    """
+    
 def register(request):
     if request.method == 'POST':
         errors = User.objects.register_validator(request.POST)
