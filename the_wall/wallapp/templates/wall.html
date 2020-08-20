@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static "wall.css" %}">
+        <title>CodingDojo Wall</title>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <section id="reg">
+                <h3>Post a message:</h3>
+                <form action="/wall/post_message" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="m_content">
+                    <input type="submit" value="Post">
+                </form>
+            </section>
+            <section>
+                <hr>
+                <h4>All Messages:</h4>
+                {% for wall_message in all_messages %}
+                    <p>{{ wall_message.m_content }}</p>
+                    <p>Posted by: {{ wall_message.poster.first_name }} - {{ wall_message.updated }}</p>
+                    {% if request.session.user_id == wall_message.poster.id %}
+                        <p><a href="/wall/edit_message/{{wall_message.id}}">Edit Message</a> - <a href="/wall/delete_message/{{wall_message.id}}">Delete Message</a></p>
+                    {% endif %}
+                    <h5>Leave a comment:</h5>
+                    <form action="/wall/post_comment/{{wall_message.id}}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="c_content">
+                        <input type="submit" value="Comment">
+                    </form>
+                    <h5>Comments:</h5>
+                    {% for wall_comment in wall_message.comment_message.all %}
+                        <p>{{ wall_comment.c_content }}</p>
+                        <p>Posted by: {{ wall_comment.poster.first_name }} - {{ wall_comment.updated }}</p>
+                        {% if request.session.user_id == wall_comment.poster.id %}
+                            <p><a href="/wall/edit_comment/{{wall_comment.id}}">Edit Comment</a> - <a href="/wall/delete_comment/{{wall_comment.id}}">Delete Comment</a></p>
+                        {% endif %}
+                    {% endfor %}
+                    <hr>
+                {% endfor %}
+            </section>
+        </div>
+    </body>
+</html>

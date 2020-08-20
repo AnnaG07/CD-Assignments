@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "wall.css" %}">
+    <title>CodingDojo Wall - Edit Wall Message</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <section>
+            <h4>Edit Wall Message:</h4>
+            <a href="/wall">Back</a>
+        </section>
+        <section>
+            <form action="/wall/update_message/{{wall_message.id}}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="m_content" value="{{wall_message.m_content}}">
+                <input type="submit" value="Post">
+            </form>
+        </section>
+    </div>
+</body>
+</html>

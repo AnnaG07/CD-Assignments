@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
 from django.contrib import messages
 from django.contrib.auth import logout
 from .models import *
@@ -15,7 +15,7 @@ def login(request):
         user = User.objects.get(email=request.POST['email'])
         request.session['user_id'] = user.id
         request.session['name'] = user.first_name
-        return redirect('/success')
+        return redirect('/wall')
     return redirect('/')
     
 def register(request):
@@ -31,13 +31,13 @@ def register(request):
         print(hashedpw)
         new_user = User.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'], email=request.POST['email'], password=hashedpw)
         request.session['name'] = new_user.first_name
-        return redirect('/success')
+        return redirect('/wall')
     return redirect('/')
 
 def success(request):
     if 'name' not in request.session:
         return redirect('/')
-    return render(request, 'success.html')
+    return render(request, 'wall.html')
 
 def logout_request(request):
     logout(request)
