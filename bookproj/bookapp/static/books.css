@@ -1,0 +1,35 @@
+.container-fluid {
+    background-color: #28536B;
+    color: #F6F0ED;
+    padding: 20px;
+}
+a {
+    color: #bbb193;
+}
+section {
+    display: inline-block;
+    margin: 20px;
+    vertical-align: top;
+    color: #F6F0ED;
+    justify-content: space-between;
+}
+#home_fave {
+    margin-left: 0px;
+    margin-right: 400px;
+}
+#view_book {
+    margin-right: 400px;
+}
+.nav h3 {
+    margin-right: 1300px;
+}
+.nav a {
+    margin-right: 20px;
+}
+p, a, input {
+    margin-bottom: 10px;
+}
+#quotes hr {
+    height: 15px;
+    color: #92B4A7;
+}

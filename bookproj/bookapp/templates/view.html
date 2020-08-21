@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "books.css" %}">
+    <title>Favorite Books</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="nav">
+            <h3>Hello, {{request.session.name}}</h3>
+            <a href="/logout">Log Out</a>
+            <a href="/books">Back</a>
+        </div>
+        <section id="view_book">
+            <h4>{{ one_book.title }}</h4>
+            <p>Added by: {{ one_book.created_by.first_name }}</p>
+            <p>Added on: {{ one_book.created }}</p>
+            <p>Last Updated: {{ one_book.updated }}</p>
+            {% if request.session.user_id != one_book.created_by.id %}
+                <a href="/books/favorite/{{book.id}}">favorite Book</a>
+            {% endif %}
+            {% if request.session.user_id != one_book.created_by.id %}
+                <p>Description: {{ one_book.desc }}</p>
+                {% else %}
+                    <form action="/books/edit_desc/{{book.id}}" method="POST">
+                        {% csrf_token %}
+                        <p>Title: <input type="text" name="title"></p>
+                        <p>Description: <input type="text" name="desc"></p>
+                        <input type="submit" value="Update">
+                        <a href="/books/delete/{{one_book.id}}">Delete</a>
+                    </form>
+                    <a href="/books/unfavorite/{{one_book.id}}">Unfavorite Book</a>
+            {% endif %}
+        </section>
+        <section id="view_users">
+            <h4>Other Users Who Like This Book:</h4>
+            {% for fave in one_book.faved_books.all %}
+                <ul>
+                    <li>{{ fave.first_name }} {{ fave.last_name }}</li>
+                </ul>
+            {% endfor %}
+        </section>
+    </div>
+</body>
+</html>

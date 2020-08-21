@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "login.css" %}">
+    <title>Favorite Books - Login / Reg</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <section>
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+            <h2>Registration</h2>
+            <form action="/register" method="POST">
+                {% csrf_token %}
+                <p>First Name:</p>
+                <input type="text" name="first_name">
+                <p>Last Name:</p>
+                <input type="text" name="last_name">
+                <p>Email:</p>
+                <input type="email" name="email">
+                <p>Password:</p>
+                <input type="password" name="password">
+                <p>Confirm Password:</p>
+                <input type="password" name="pw_conf">
+                <input type="submit" value="Register">
+            </form>
+        </section>
+        <section>
+            <h2>Login</h2>
+            <form action="/login" method="POST">
+                {% csrf_token %}
+                <p>Email:</p>
+                <input type="email" name="email">
+                <p>Password:</p>
+                <input type="password" name="password">
+                <input type="submit" value="Log In">
+            </form>
+        </section>
+    </div>
+</body>
+</html>

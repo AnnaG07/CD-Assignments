@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "books.css" %}">
+    <title>Favorite Books</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="nav">
+            <h3>Welcome, {{request.session.name}}</h3>
+            <a href="/logout">Log Out</a>
+            <hr>
+        </div>
+        <div class="container">
+            <section id="home_fave">
+                <h3>Add a Favorite Book:</h3>
+                <form action="/books/add_book" method="POST">
+                    {% csrf_token %}
+                    <p>Title: </p>
+                    <input type="text" name="title">
+                    <p>Description: </p>
+                    <input type="text" name="desc">
+                    <input type="submit" value="Add">
+                </form>
+            </section>
+            <section id="home_books">
+                <h4>All Books:</h4>
+                {% for book in all_books %}
+                    <a href="/books/view/{{book.id}}">{{ book.title }}</a>
+                    <p>Added by: {{ book.created_by.first_name }} - {{ book.updated }}</p>
+                    {% if request.session.user_id != book.created_by.id %}
+                        <p><a href="/books/favorite/{{book.id}}">Favorite Book</a></p>
+                    {% endif %}
+                    <p>{{ book.faved_books.count }} people favorited this book!</p>
+                    {% if request.session.user_id == book.created_by.id %}
+                        <p><a href="/books/delete/{{book.id}}">Delete Book</a></p>
+                    {% endif %}
+                    <hr>
+                {% endfor%}
+            </section>
+        </div>
+    </div>
+</body>
+</html>
