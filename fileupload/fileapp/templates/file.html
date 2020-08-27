@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload App</title>
+</head>
+<body>
+    <h3>Upload a File:</h3>
+    <form method='POST' class="col s12" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="document">
+        <p><button type="submit" class="waves-effect waves-light btn" style="background-color: teal;">Publish</button></p>
+    </form>
+</body>
+</html>
